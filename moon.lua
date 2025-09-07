@@ -1,139 +1,108 @@
--- LocalScript (StarterGui 内)
-local player = game.Players.LocalPlayer
+-- ScreenGui
 local gui = Instance.new("ScreenGui")
 gui.Name = "MoonHubUI"
 gui.ResetOnSpawn = false
-gui.ZIndexBehavior = Enum.ZIndexBehavior.Global
-gui.Parent = player:WaitForChild("PlayerGui")
+gui.DisplayOrder = 9999 -- 最優先で表示
+gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+gui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
--- メインフレーム
+-- Main Frame
 local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0, 350, 0, 200)
-frame.Position = UDim2.new(0.5, -175, 0.5, -100)
-frame.BackgroundColor3 = Color3.fromRGB(255, 255, 204) -- 薄黄色
-frame.BorderSizePixel = 0
+frame.Size = UDim2.new(0, 400, 0, 220)
+frame.Position = UDim2.new(0.5, -200, 0.5, -110)
+frame.BackgroundColor3 = Color3.fromRGB(255, 255, 200) -- 薄い黄色
 frame.ZIndex = 10
 frame.Parent = gui
 
+-- 角丸
 local corner = Instance.new("UICorner")
-corner.CornerRadius = UDim.new(0, 20)
+corner.CornerRadius = UDim.new(0, 12)
 corner.Parent = frame
 
--- 三日月（Frame を2つ重ねて作る）
-local moon = Instance.new("Frame")
-moon.Size = UDim2.new(0, 180, 0, 180)
-moon.Position = UDim2.new(0, -40, 0, -40)
-moon.BackgroundColor3 = Color3.fromRGB(200, 200, 200)
-moon.BackgroundTransparency = 0.75
-moon.BorderSizePixel = 0
-moon.ZIndex = 5
+-- 背景三日月
+local moon = Instance.new("ImageLabel")
+moon.Size = UDim2.new(1, 0, 1, 0)
+moon.BackgroundTransparency = 1
+moon.Image = "rbxassetid://6031068433" -- 三日月アイコン
+moon.ImageTransparency = 0.85 -- 薄く透ける
+moon.ZIndex = 1 -- テキストやボタンより後ろ
 moon.Parent = frame
-moon.ClipsDescendants = true
-moon.AnchorPoint = Vector2.new(0,0)
-
-local mask = Instance.new("Frame")
-mask.Size = UDim2.new(0, 180, 0, 180)
-mask.Position = UDim2.new(0, -20, 0, -40)
-mask.BackgroundColor3 = Color3.fromRGB(255, 255, 204)
-mask.BorderSizePixel = 0
-mask.ZIndex = 6
-mask.Parent = moon
-
-local moonCorner = Instance.new("UICorner")
-moonCorner.CornerRadius = UDim.new(1, 0)
-moonCorner.Parent = moon
-local maskCorner = Instance.new("UICorner")
-maskCorner.CornerRadius = UDim.new(1, 0)
-maskCorner.Parent = mask
 
 -- タイトル
 local title = Instance.new("TextLabel")
-title.Text = "Moon Hub"
 title.Size = UDim2.new(1, -40, 0, 40)
-title.Position = UDim2.new(0, 20, 0, 10)
-title.Font = Enum.Font.GothamBold
-title.TextScaled = true
-title.TextColor3 = Color3.fromRGB(0, 0, 0)
+title.Position = UDim2.new(0, 10, 0, 5)
 title.BackgroundTransparency = 1
-title.ZIndex = 11
+title.Text = "🌙 Moon Hub"
+title.TextColor3 = Color3.fromRGB(0, 0, 0)
+title.TextScaled = true
+title.Font = Enum.Font.GothamBold
+title.ZIndex = 10
 title.Parent = frame
 
--- 閉じるボタン (×)
+-- 閉じるボタン
 local closeBtn = Instance.new("TextButton")
-closeBtn.Text = "×"
-closeBtn.Size = UDim2.new(0, 28, 0, 28)
-closeBtn.Position = UDim2.new(1, -34, 0, 6)
-closeBtn.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+closeBtn.Size = UDim2.new(0, 30, 0, 30)
+closeBtn.Position = UDim2.new(1, -35, 0, 5)
+closeBtn.Text = "❌"
+closeBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
 closeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-closeBtn.Font = Enum.Font.SourceSansBold
 closeBtn.TextScaled = true
-closeBtn.ZIndex = 12
+closeBtn.Font = Enum.Font.GothamBold
+closeBtn.ZIndex = 10
 closeBtn.Parent = frame
-
-local closeCorner = Instance.new("UICorner")
-closeCorner.CornerRadius = UDim.new(1, 0)
-closeCorner.Parent = closeBtn
-
 closeBtn.MouseButton1Click:Connect(function()
-    gui:Destroy()
+    frame.Visible = false
 end)
 
--- 入力欄
-local textBox = Instance.new("TextBox")
-textBox.PlaceholderText = "Enter your key..."
-textBox.Size = UDim2.new(0, 200, 0, 30)
-textBox.Position = UDim2.new(0, 20, 0, 70)
-textBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-textBox.Text = ""
-textBox.ClearTextOnFocus = false
-textBox.ZIndex = 11
-textBox.Parent = frame
+-- キー入力
+local keyBox = Instance.new("TextBox")
+keyBox.Size = UDim2.new(0.8, 0, 0, 40)
+keyBox.Position = UDim2.new(0.1, 0, 0.35, 0)
+keyBox.PlaceholderText = "Enter your key here..."
+keyBox.Text = ""
+keyBox.TextScaled = true
+keyBox.BackgroundColor3 = Color3.fromRGB(240, 240, 200)
+keyBox.TextColor3 = Color3.fromRGB(0, 0, 0)
+keyBox.Font = Enum.Font.Gotham
+keyBox.ZIndex = 10
+keyBox.Parent = frame
 
-local boxCorner = Instance.new("UICorner")
-boxCorner.CornerRadius = UDim.new(0, 10)
-boxCorner.Parent = textBox
+local keyCorner = Instance.new("UICorner")
+keyCorner.CornerRadius = UDim.new(0, 8)
+keyCorner.Parent = keyBox
 
--- 確定ボタン (✔)
-local confirmBtn = Instance.new("TextButton")
-confirmBtn.Text = "✔"
-confirmBtn.Size = UDim2.new(0, 40, 0, 30)
-confirmBtn.Position = UDim2.new(0, 230, 0, 70)
-confirmBtn.BackgroundColor3 = Color3.fromRGB(0, 200, 0)
-confirmBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-confirmBtn.Font = Enum.Font.SourceSansBold
-confirmBtn.TextScaled = true
-confirmBtn.ZIndex = 11
-confirmBtn.Parent = frame
+-- Get Key ボタン
+local getKeyBtn = Instance.new("TextButton")
+getKeyBtn.Size = UDim2.new(0, 120, 0, 40)
+getKeyBtn.Position = UDim2.new(0.1, 0, 0.75, 0)
+getKeyBtn.Text = "Get Key"
+getKeyBtn.BackgroundColor3 = Color3.fromRGB(0, 120, 255)
+getKeyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+getKeyBtn.Font = Enum.Font.GothamBold
+getKeyBtn.TextScaled = true
+getKeyBtn.ZIndex = 10
+getKeyBtn.Parent = frame
 
-local confirmCorner = Instance.new("UICorner")
-confirmCorner.CornerRadius = UDim.new(0, 10)
-confirmCorner.Parent = confirmBtn
+-- Verify Key ボタン
+local verifyBtn = Instance.new("TextButton")
+verifyBtn.Size = UDim2.new(0, 120, 0, 40)
+verifyBtn.Position = UDim2.new(0.5, -60, 0.75, 0)
+verifyBtn.Text = "Verify Key"
+verifyBtn.BackgroundColor3 = Color3.fromRGB(0, 200, 100)
+verifyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+verifyBtn.Font = Enum.Font.GothamBold
+verifyBtn.TextScaled = true
+verifyBtn.ZIndex = 10
+verifyBtn.Parent = frame
 
--- Copy ボタン
-local copyBtn = Instance.new("TextButton")
-copyBtn.Text = "Copy Key Site"
-copyBtn.Size = UDim2.new(0.8, 0, 0, 30)
-copyBtn.Position = UDim2.new(0.1, 0, 0, 120)
-copyBtn.BackgroundColor3 = Color3.fromRGB(70, 130, 180)
-copyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-copyBtn.Font = Enum.Font.SourceSansBold
-copyBtn.TextScaled = true
-copyBtn.ZIndex = 11
-copyBtn.Parent = frame
-
-local copyCorner = Instance.new("UICorner")
-copyCorner.CornerRadius = UDim.new(0, 10)
-copyCorner.Parent = copyBtn
-
--- コピー処理（リンクは表示せずコピーだけ）
-local keySite = "https://example.com/real-key-site"
-copyBtn.MouseButton1Click:Connect(function()
-    if setclipboard then
-        setclipboard(keySite)
-    elseif toclipboard then
-        toclipboard(keySite)
-    end
+-- コピー機能
+local keyLink = "https://example.com/keysystem"
+getKeyBtn.MouseButton1Click:Connect(function()
+    setclipboard(keyLink) -- クリックでリンクをコピー
 end)
+
+
 
 
 
