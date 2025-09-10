@@ -37,4 +37,13 @@ local Window = Rayfield:CreateWindow({
 })
 
 
+local fileName = "Moon Key.json"
+
+if isfile(fileName) then
+    delfile(fileName)
+end
+
+
+
+
 
