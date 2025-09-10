@@ -43,4 +43,4 @@ Rayfield:Notify({
    Image = 4483362458,
 })
 
-local Section = Tab:CreateSection("Section Example")
+Rayfield:Destroy()
