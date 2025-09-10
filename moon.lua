@@ -1,4 +1,4 @@
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/soeafiugh/moon-hub-fing-lol/refs/heads/main/moon.lua"))()e')))()
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 local Player = game.Players.LocalPlayer
 local Window = OrionLib:MakeWindow({Name = "Key System", HidePremium = false, SaveConfig = true, IntroEnabled = false})
 
@@ -60,6 +60,7 @@ Tab:AddButton({
         end
     end
 })
+
 
 
 
