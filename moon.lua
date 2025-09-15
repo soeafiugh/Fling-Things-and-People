@@ -36,11 +36,8 @@ local Window = Rayfield:CreateWindow({
    }
 })
 
-Rayfield:Notify({
-   Title = "Notification Title",
-   Content = "Notification Content",
-   Duration = 6.5,
-   Image = 4483362458,
-})
+local Tab = Window:CreateTab("all", 4483362458) -- Title, Image
 
-Rayfield:Destroy()
+local Section = Tab:CreateSection("all script")
+
+
