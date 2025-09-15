@@ -36,9 +36,7 @@ local Window = Rayfield:CreateWindow({
    }
 })
 
-local Tab = Window:CreateTab("all", 4483362458) -- Title, Image
-
-local Section = Tab:CreateSection("all script")
+local Tab = Window:CreateTab("defense", 4483362458) -- Title, Image
 
 ocal Button = Tab:CreateButton({
    Name = "Invincible",
@@ -47,5 +45,25 @@ ocal Button = Tab:CreateButton({
    end,
 })
 
+local Tab = Window:CreateTab("combat", 4483362458)
+
+local Toggle = Tab:CreateToggle({
+   Name = "choice",
+   CurrentValue = false,
+   Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+   -- The function that takes place when the toggle is pressed
+   -- The variable (Value) is a boolean on whether the toggle is true or false
+   end,
+})
+
+Toggle:Set(false)
+
+ocal Button = Tab:CreateButton({
+   Name = "Reskill",
+   Callback = function()
+   -- The function that takes place when the button is pressed
+   end,
+})
 
 
