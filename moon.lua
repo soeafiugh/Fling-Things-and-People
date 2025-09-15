@@ -40,4 +40,12 @@ local Tab = Window:CreateTab("all", 4483362458) -- Title, Image
 
 local Section = Tab:CreateSection("all script")
 
+ocal Button = Tab:CreateButton({
+   Name = "Invincible",
+   Callback = function()
+   -- The function that takes place when the button is pressed
+   end,
+})
+
+
 
