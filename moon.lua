@@ -36,10 +36,10 @@ local Window = Rayfield:CreateWindow({
    }
 })
 
-local Tab = Window:CreateTab("all", 4483362458) -- Title, Image
+local Tab = Window:CreateTab("all", 4483362458) 
 
 local Keybind = Tab:CreateKeybind({
-   Name = "Teleport to Camera",
+   Name = "Teleport to Crosshair",
    CurrentKeybind = "T",
    HoldToInteract = false,
    Flag = "KeybindTP",
@@ -50,11 +50,21 @@ local Keybind = Tab:CreateKeybind({
       local camera = workspace.CurrentCamera
 
       if hrp and camera then
-         local newPosition = camera.CFrame.Position + (camera.CFrame.LookVector * 5)
-         hrp.CFrame = CFrame.new(newPosition)
-      end
-   end,
-})
+         local rayOrigin = camera.CFrame.Position
+         local rayDirection = camera.CFrame.LookVector * 1000 
+
+         local raycastParams = RaycastParams.new()
+         raycastParams.FilterDescendantsInstances = {character} 
+         raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
+
+         local result = workspace:Raycast(rayOrigin, rayDirection, raycastParams)
+
+         if result then
+           
+            hrp.CFrame = CFrame.new(result.Position + Vector3.new(0, 3, 0))
+         else
+         
+
 
 
 
