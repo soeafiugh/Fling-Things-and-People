@@ -36,4 +36,23 @@ local Window = Rayfield:CreateWindow({
    }
 })
 
+local Keybind = Tab:CreateKeybind({
+   Name = "Teleport to Camera",
+   CurrentKeybind = "T",
+   HoldToInteract = false,
+   Flag = "KeybindTP",
+   Callback = function()
+      local player = game.Players.LocalPlayer
+      local character = player.Character or player.CharacterAdded:Wait()
+      local hrp = character:FindFirstChild("HumanoidRootPart")
+      local camera = workspace.CurrentCamera
+
+      if hrp and camera then
+         local newPosition = camera.CFrame.Position + (camera.CFrame.LookVector * 5)
+         hrp.CFrame = CFrame.new(newPosition)
+      end
+   end,
+})
+
+
 
