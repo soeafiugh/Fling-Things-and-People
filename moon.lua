@@ -36,6 +36,8 @@ local Window = Rayfield:CreateWindow({
    }
 })
 
+local Tab = Window:CreateTab("all", 4483362458) -- Title, Image
+
 local Keybind = Tab:CreateKeybind({
    Name = "Teleport to Camera",
    CurrentKeybind = "T",
@@ -53,6 +55,7 @@ local Keybind = Tab:CreateKeybind({
       end
    end,
 })
+
 
 
 
